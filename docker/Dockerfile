@@ -1,5 +1,5 @@
 # Base Image
-FROM python:3.11
+FROM python:3.11-slim
 
 # Set working directory
 WORKDIR /app
@@ -9,7 +9,7 @@ COPY wheelhouse /wheelhouse
 COPY requirements.txt /app/
 
 # Install dependencies from the local wheelhouse
-RUN pip install --no-index --find-links=/wheelhouse -r requirements.txt
+RUN pip install --no-index --no-deps /wheelhouse/*
 
 # Copy the application code
 COPY src /app/src

@@ -2,7 +2,7 @@
 
 For creating a Python docker image for Graph Neural Network (GNN) training
 
-Python 3.11
+Using Python 3.11-slim
 
 
 ### Image configuration
@@ -21,18 +21,18 @@ Python 3.11
 ```
 
 ### For offline deployment
-To download the wheels for offline (e.g. airgapped environment) deployment:
+Download the required libraries for the target Docker image.
 ```bash
 mkdir -p wheelhouse
-pip download -r requirements.txt -d wheelhouse
+pip download -r requirements.txt -d wheelhouse --platform=manylinux2014_x86_64 --no-deps
 ```
 
-```
+```bash
 docker build -t gnn-trainer -f docker/Dockerfile .
 ```
 
-Example run:
-```
+Example run (on bash):
+```bash
 docker run --rm \
   -v $(pwd)/data:/app/data \
   -v $(pwd)/output:/app/output \
