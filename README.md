@@ -31,11 +31,18 @@ pip download -r requirements.txt -d wheelhouse --platform=manylinux2014_x86_64 -
 docker build -t gnn-trainer -f docker/Dockerfile .
 ```
 
-Example run (on bash):
+Example run (bash):
 ```bash
 docker run --rm \
   -v $(pwd)/data:/app/data \
   -v $(pwd)/output:/app/output \
+  gnn-trainer --dataset cora --model gcn --task node_classification --epochs 50 --lr 0.005 --output /app/output/results.txt
+```
+(PowerShell)
+```PowerShell
+docker run --rm `
+  -v $pwd/data:/app/data `
+  -v $pwd/output:/app/output `
   gnn-trainer --dataset cora --model gcn --task node_classification --epochs 50 --lr 0.005 --output /app/output/results.txt
 ```
 
