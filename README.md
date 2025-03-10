@@ -1,8 +1,6 @@
 # gnn-training-docker
 
-For creating a Python docker image for Graph Neural Network (GNN) training
-
-Using Python 3.11-slim
+For creating a docker image for Graph Neural Network (GNN) training
 
 
 ### Image configuration
@@ -24,7 +22,7 @@ Using Python 3.11-slim
 Download the required libraries for the target Docker image.
 ```bash
 mkdir -p wheelhouse
-pip download -r requirements.txt -d wheelhouse --platform=manylinux2014_x86_64 --no-deps
+pip download -r requirements.txt -d wheelhouse --platform=manylinux2014_x86_64 --no-deps --only-binary=:all:
 ```
 
 ```bash
@@ -33,14 +31,14 @@ docker build -t gnn-trainer -f docker/Dockerfile .
 
 Example run (bash):
 ```bash
-docker run --rm \
+docker run --rm --gpus all \
   -v $(pwd)/data:/app/data \
   -v $(pwd)/output:/app/output \
   gnn-trainer --dataset cora --model gcn --task node_classification --epochs 50 --lr 0.005 --output /app/output/results.txt
 ```
 (PowerShell)
 ```PowerShell
-docker run --rm `
+docker run --rm --gpus all `
   -v $pwd/data:/app/data `
   -v $pwd/output:/app/output `
   gnn-trainer --dataset cora --model gcn --task node_classification --epochs 50 --lr 0.005 --output /app/output/results.txt
